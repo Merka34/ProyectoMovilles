@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "71118281404",
+    "project_id": "api-android-notificacion",
+    "storage_bucket": "api-android-notificacion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71118281404:android:0aef351ab23ff82bd90eb9",
+        "android_client_info": {
+          "package_name": "com.tecnm.notas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71118281404-rhh2t0notjo73csd5pktnr5edasiisn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzs_VGJFko4GLoB7nr4VqiEfFuOTvpJ4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71118281404-rhh2t0notjo73csd5pktnr5edasiisn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CelularesApp.ViewModels"
+             xmlns:m="clr-namespace:CelularesApp.Models"
+             x:Class="CelularesApp.Views.AgregarCelularView"
+             Title="Nuevo Celular"
+             x:DataType="vm:CelularViewModel">
+    <StackLayout Margin="10">
+        <StackLayout Orientation="Vertical">
+            <StackLayout>
+                <StackLayout.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="20"></Setter>
+                    </Style>
+                    <Style TargetType="Entry">
+                        <Setter Property="FontSize" Value="25"></Setter>
+                    </Style>
+                </StackLayout.Resources>
+                <Label>Marca:</Label>
+                <Entry Placeholder="Marca" Text="{Binding Celular.Marca}"></Entry>
+                <Label>Modelo:</Label>
+                <Entry Placeholder="Modelo" Text="{Binding Celular.Modelo}"></Entry>
+                <Label>Memoria RAM (GB):</Label>
+                <Entry Keyboard="Numeric" Placeholder="Memoria RAM" Text="{Binding Celular.MemoriaRam}"></Entry>
+                <Label>Red</Label>
+                <Entry Keyboard="Text" Placeholder="Proveedor de Red" Text="{Binding Celular.Red}"></Entry>
+                <Label>Precio:</Label>
+                <Entry Keyboard="Numeric" Placeholder="Precio" Text="{Binding Celular.Precio}"></Entry>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout  BindableLayout.ItemsSource="{Binding Errores}" HorizontalOptions="Center">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="m:Error">
+                    <Label TextColor="Red" FontSize="Small" HorizontalTextAlignment="Center" Text="{Binding Message}"></Label>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+        <Button Text="Agregar" Margin="10" Padding="10" FontSize="20" Command="{Binding AgregarCommand}"></Button>
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+            
+            <!--<Button Command="{Binding CancelarCommand}" Text="Cancelar"></Button>-->
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

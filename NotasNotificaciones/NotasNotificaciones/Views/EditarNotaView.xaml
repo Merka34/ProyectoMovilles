@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NotasNotificaciones.ViewModels"
+             xmlns:m="clr-namespace:NotasNotificaciones.Models"
+             x:Class="NotasNotificaciones.Views.EditarNotaView"
+             x:DataType="vm:NotaViewModel">
+    
+    <StackLayout Margin="10">
+        <Label>Titulo:</Label>
+        <Entry FontSize="25" Placeholder="Marca" Text="{Binding Nota.Titulo}"></Entry>
+        <Label>Descripcion:</Label>
+        <Entry FontSize="25" Placeholder="Modelo" Text="{Binding Nota.Descripcion}"></Entry>
+        <StackLayout  BindableLayout.ItemsSource="{Binding Errores}" HorizontalOptions="Center">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="m:Error">
+                    <Label TextColor="Red" FontSize="Small" HorizontalTextAlignment="Center" Text="{Binding Message}"></Label>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+        <StackLayout Margin="10" HorizontalOptions="Center" Orientation="Horizontal">
+            <Button Text="Editar" Command="{Binding EditarCommand}"></Button>
+            <Button Command="{Binding CancelarCommand}" Text="Cancelar"></Button>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PerfilApp.ViewModels"
+             Title="Iniciar sesión"
+             BackgroundColor="#043802"
+             x:Class="PerfilApp.Views.SesionView">
+    <ContentPage.BindingContext>
+        <vm:SessionViewModel></vm:SessionViewModel>
+    </ContentPage.BindingContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height=".6*"/>
+        </Grid.RowDefinitions>
+        <Image Aspect="AspectFit" WidthRequest="100" Source="https://upload.wikimedia.org/wikipedia/commons/d/d4/Logo-TecNM-2017.png"/>
+        <StackLayout Grid.Row="1">
+            <StackLayout.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="20"></Setter>
+                </Style>
+            </StackLayout.Resources>
+            <Label>Usuario:</Label>
+            <Entry Text="{Binding SessionModel.Usuario}"></Entry>
+            <Label>Contraseña:</Label>
+            <Entry IsPassword="True" Text="{Binding SessionModel.Contraseña}" ></Entry>
+
+            <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
+
+            <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
+
+            <Button Command="{Binding IniciarSesionCommand}" BackgroundColor="#041f7a" Margin="10" Text="Iniciar sesión"></Button>
+        </StackLayout>
+        
+
+    </Grid>
+</ContentPage>

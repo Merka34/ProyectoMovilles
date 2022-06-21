@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NotasNotificaciones.ViewModels"
+             xmlns:ads="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
+             x:Class="NotasNotificaciones.Views.NotasView"
+             Title="Notas"
+             BackgroundColor="LightYellow">
+    
+    <ContentPage.BindingContext>
+        <vm:NotaViewModel x:Name="cvm"></vm:NotaViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding VistaAgregarCommand}" Text="Agregar" ></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackLayout>
+            <ads:MTAdView Background="White"
+                      HeightRequest="60"
+                      IsEnabled="True"
+                      IsVisible="True"
+                      x:Name="miAd"
+                      AdsId="ca-app-pub-9712565769296684/8852197082"/>
+        </StackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Notas}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Command="{Binding Source={x:Reference cvm}, Path=EliminarCommand}"                                    
+                                   CommandParameter="{Binding .}" Text="&#x1F5D1;" BackgroundColor="Red"></SwipeItem>
+                            <SwipeItem  Command="{Binding Source={x:Reference cvm}, Path=VistaEditarCommand}"                                    
+                                   CommandParameter="{Binding .}"
+                                   Text="&#x270f;" BackgroundColor="MediumPurple" ></SwipeItem>
+                        </SwipeView.RightItems>
+
+                        <Grid Padding="2,1" BackgroundColor="DodgerBlue" Margin="2">
+                            <Label FontSize="38" TextColor="Black" Text="{Binding Titulo}"></Label>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

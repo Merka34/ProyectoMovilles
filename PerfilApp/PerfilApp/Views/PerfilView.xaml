@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PerfilApp.ViewModels"
+             BackgroundColor="#043802"
+             x:Class="PerfilApp.Views.PerfilView">
+    <ContentPage.BindingContext>
+        <vm:PerfilViewModel x:Name="cvm"></vm:PerfilViewModel>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Margin="10"  Padding="3">
+            <StackLayout.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="16"></Setter>
+                </Style>
+            </StackLayout.Resources>
+            <Label BackgroundColor="Black" FontSize="30" FontAttributes="Bold" HorizontalTextAlignment="Center">Datos del Perfil</Label>
+            <Image Aspect="AspectFit" WidthRequest="200" Margin="10" Source="https://upload.wikimedia.org/wikipedia/commons/d/d4/Logo-TecNM-2017.png"/>
+
+            <Frame Padding="10"  BorderColor="Black" BackgroundColor="Transparent">
+                <StackLayout>
+                    <Label FontAttributes="Bold"  Text="Nombre completo:"></Label>
+                    <Label Text="{Binding Perfil.Nombre}"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="10"  BorderColor="Black" BackgroundColor="Transparent">
+                <StackLayout>
+                    <Label FontAttributes="Bold" Text="Numero de control:"></Label>
+                    <Label Text="{Binding Perfil.NoControl}"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="10"  BorderColor="Black" BackgroundColor="Transparent">
+                <StackLayout>
+                    <Label FontAttributes="Bold" Text="Numero de control:"></Label>
+                    <Label Text="{Binding Perfil.NoControl}"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="10" BorderColor="Black" BackgroundColor="Transparent">
+                <StackLayout>
+                    <Label FontAttributes="Bold"  Text="Correo electrónico:"></Label>
+                    <Label Text="{Binding Perfil.Correo}"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="10"  BorderColor="Black" BackgroundColor="Transparent">
+                <StackLayout>
+                    <Label FontAttributes="Bold"  Text="Nombre Carrera:"></Label>
+                    <Label Text="{Binding Perfil.Carrera}"></Label>
+                </StackLayout>
+            </Frame>
+            <Button Command="{Binding CerrarSesionCommand}" BackgroundColor="Red" Text="Cerrar Sesion"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CelularesApp.ViewModels"
+             xmlns:ads="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
+             Title="Celulares"
+             BackgroundColor="LightBlue"
+             x:Class="CelularesApp.Views.CelularesView">
+    <ContentPage.BindingContext>
+        <vm:CelularViewModel x:Name="cvm"></vm:CelularViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding VistaAgregarCommand}"  Text="Agregar" ></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width=".2*"/>
+                <ColumnDefinition Width=".2*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Text="{Binding CelularesBusqueda}" FontSize="20" Placeholder="Buscar celular"/>
+            <Button Grid.Column="1" Text="&#x1F50D;" BackgroundColor="LightBlue" Margin="6" CornerRadius="10" Command="{Binding BusquedaCelularCommand}"></Button>
+            <Grid  Grid.Column="2" >
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding RecompensaDisponible}" Value="True">
+                                <Setter Property="IsEnabled" Value="True"></Setter>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding RecompensaDisponible}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Button x:Name="btnReward" FontSize="20" HorizontalOptions="CenterAndExpand" CornerRadius="10" Margin="6" BackgroundColor="LightGreen" Text="&#9733;" Command="{Binding RecompensarCommand}"></Button>
+            </Grid>
+        </Grid>
+        <ads:MTAdView Background="White"
+                      Grid.Row="1"
+                      HeightRequest="60"
+                      IsEnabled="True"
+                      IsVisible="True"
+                      x:Name="miAd"
+                      AdsId="ca-app-pub-9712565769296684/4760521790"/>
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Celulares}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Command="{Binding Source={x:Reference cvm}, Path=VistaEditarCommand}"                                    
+                                   CommandParameter="{Binding .}"
+                                   Text="&#x270e;" BackgroundColor="DarkViolet" ></SwipeItem>
+                            <SwipeItem Command="{Binding Source={x:Reference cvm}, Path=EliminarCommand}"                                    
+                                   CommandParameter="{Binding .}" Text="&#x2718;" BackgroundColor="Red"></SwipeItem>
+                        </SwipeView.RightItems>
+
+                        <Grid BackgroundColor="DodgerBlue" Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Padding="5" Grid.ColumnSpan="1">
+                                <Label FontSize="18" TextColor="Black" Text="{Binding Marca}"></Label>
+                                <Label FontSize="18" TextColor="Black" Text="{Binding Modelo}"></Label>
+                                <Label FontSize="18" TextColor="Black" Text="{Binding Red}"></Label>
+                            </StackLayout>
+                            <Frame BackgroundColor="DarkBlue" Grid.Column="2">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label TextColor="Black" Text="$ "></Label>
+                                    <Label FontSize="18" TextColor="Black" Text="{Binding Precio}"></Label>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
