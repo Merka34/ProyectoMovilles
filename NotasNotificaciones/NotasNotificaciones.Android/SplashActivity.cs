@@ -11,7 +11,7 @@ using System.Text;
 
 namespace NotasNotificaciones.Droid
 {
-    [Activity(Theme = "@style/Theme.Splash", NoHistory = true, MainLauncher = true, Icon = "@drawable/ic_launcher")]
+    [Activity(Theme = "@style/Theme.Splash", NoHistory = true, MainLauncher = true, Icon = "@drawable/logo")]
     public class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

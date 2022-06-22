@@ -137,7 +137,6 @@ namespace CelularesApp.ViewModels
             Celular = d as Celular;
             Errores = null;
             await Application.Current.MainPage.Navigation.PushAsync(editarView);
-            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-9712565769296684/4383820109");
         }
 
         private async void VerAgregarAsync()
