@@ -23,7 +23,6 @@ namespace NotasNotificaciones.Droid
             NotificationManager manager = Application.Context.GetSystemService(Application.NotificationService)
                as NotificationManager;
 
-
             var channel = new NotificationChannel(ClaseNotificaciones.NombreCanal,
                           "Canal de Pruebas de Notificaciones Locales", NotificationImportance.Default);
 
@@ -33,7 +32,6 @@ namespace NotasNotificaciones.Droid
             channel.EnableVibration(true);
 
             manager.CreateNotificationChannel(channel);
-            MobileAds.Initialize(ApplicationContext);
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

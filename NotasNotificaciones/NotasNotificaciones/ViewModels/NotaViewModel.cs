@@ -9,21 +9,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Extensions;
-using MarcTron.Plugin;
 
 namespace NotasNotificaciones.ViewModels
 {
     public class NotaViewModel : INotifyPropertyChanged
     {
-        public int MostrarAnuncio { get; set; }
-        private bool _recompensaDisponible = false;
-
-        public bool RecompensaDisponible
-        {
-            get { return _recompensaDisponible; }
-            set { _recompensaDisponible = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RecompensaDisponible))); }
-        }
 
         private Nota _nota;
         IToast Mensaje;
@@ -60,72 +50,24 @@ namespace NotasNotificaciones.ViewModels
         public Command VistaEditarCommand { get; set; }
         public Command AgregarCommand { get; set; }
         public Command EditarCommand { get; set; }
-        public Command RecompensaCommand { get; set; }
         public Command EliminarCommand { get; set; }
         public Command CancelarCommand { get; set; }
 
         //Actions
         public NotaViewModel()
         {
-            MostrarAnuncio = 0;
             AgregarCommand = new Command(Agregar);
             EditarCommand = new Command(Editar);
-            RecompensaCommand = new Command(Recompensar);
             EliminarCommand = new Command(Eliminar);
             VistaAgregarCommand = new Command(VerAgregarAsync);
             VistaEditarCommand = new Command(VerEditarAsync);
             SincronizadorService.ActualizacionRealizada += SincronizadorService_ActualizacionRealizada;
             SincronizadorService_ActualizacionRealizada();
-            Mensaje = DependencyService.Get<IToast>();
-
-            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-9712565769296684/3488475179");
-            CrossMTAdmob.Current.LoadRewardedVideo("ca-app-pub-9712565769296684/2175393507");
-            SincronizadorService.ActualizacionRealizada += SincronizadorService_ActualizacionRealizada;
-            SincronizadorService_ActualizacionRealizada();
-            CrossMTAdmob.Current.OnRewardedVideoAdLoaded += Current_OnRewardedVideoAdLoaded;
-            CrossMTAdmob.Current.OnRewardedVideoAdCompleted += Current_OnRewardedVideoAdCompleted;
-            CrossMTAdmob.Current.OnRewardedVideoAdClosed += Current_OnRewardedVideoAdClosed;
-        }
-
-        private void Current_OnRewardedVideoAdClosed(object sender, EventArgs e)
-        {
-            if (!CrossMTAdmob.Current.IsRewardedVideoLoaded())
-            {
-                RecompensaDisponible = false;
-            }
-        }
-
-        private void Current_OnRewardedVideoAdCompleted(object sender, EventArgs e)
-        {
-            if (!CrossMTAdmob.Current.IsRewardedVideoLoaded())
-            {
-                CrossMTAdmob.Current.LoadRewardedVideo("ca-app-pub-9712565769296684/2175393507");
-                RecompensaDisponible = false;
-            }
-        }
-
-        private void Current_OnRewardedVideoAdLoaded(object sender, EventArgs e)
-        {
-            RecompensaDisponible = true;
-        }
-
-        private void Recompensar(object obj)
-        {
-            if (CrossMTAdmob.Current.IsRewardedVideoLoaded())
-                CrossMTAdmob.Current.ShowRewardedVideo();
-
-        }
+            Mensaje = DependencyService.Get<IToast>();}
 
         private async void VerEditarAsync(object d)
         {
             if (editarView == null) editarView = new EditarNotaView() { BindingContext = this };
-            MostrarAnuncio++;
-            if (CrossMTAdmob.Current.IsInterstitialLoaded() && MostrarAnuncio == 3)
-            {
-                MostrarAnuncio = 0;
-                CrossMTAdmob.Current.ShowInterstitial();
-                CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-9712565769296684/3488475179");
-            }
             Nota = d as Nota;
             Errores = null;
             await Application.Current.MainPage.Navigation.PushAsync(editarView);
@@ -134,14 +76,6 @@ namespace NotasNotificaciones.ViewModels
         private async void VerAgregarAsync()
         {
             if (agregarView == null) agregarView = new AgregarNotaView() { BindingContext = this };
-
-            MostrarAnuncio++;
-            if (CrossMTAdmob.Current.IsInterstitialLoaded() && MostrarAnuncio == 3)
-            {
-                MostrarAnuncio = 0;
-                CrossMTAdmob.Current.ShowInterstitial();
-                CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-9712565769296684/3488475179");
-            }
             this.Nota = new Nota();
             Errores = null;
             await Application.Current.MainPage.Navigation.PushAsync(agregarView);
